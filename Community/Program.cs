@@ -1,8 +1,31 @@
+using Community.Data;
+using Community.Data.Configuration;
+using Community.Services.Extensions;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.ClearProviders();
+    logging.AddConsole();
+});
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+builder.Host.ConfigureServices(services =>
+{
+    ServiceExtensions.AddServices(services);
+});
+
+builder.Services.AddDbContext<MapContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MapDatabase"));
+});
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
