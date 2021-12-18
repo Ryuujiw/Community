@@ -1,8 +1,22 @@
+using Community.Data;
+using Community.Services.Extensions;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Host.ConfigureServices(services =>
+{
+    ServiceExtensions.AddServices(services);
+});
+
+builder.Services.AddDbContext<MapContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MapDatabase"));
+});
 
 var app = builder.Build();
 
