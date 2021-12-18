@@ -7,6 +7,7 @@ namespace Community.Services.Extensions
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IExportService, ExportService>();
+            services.AddScoped<ITreeService, TreeService>();
         }
     }
 }

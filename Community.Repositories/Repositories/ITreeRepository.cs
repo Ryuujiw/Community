@@ -2,10 +2,8 @@
 
 namespace Community.Data.Repositories
 {
-    public interface ITreeRepository : IRepository<Tree>
+    public interface ITreeRepository : IGenericRepository<Tree>
     {
-        Task<IEnumerable<Tree>> GetAll();
-        Task<Tree> GetById(Guid id);
-        Task<Tree> GetByName(string name);
+
     }
 }
