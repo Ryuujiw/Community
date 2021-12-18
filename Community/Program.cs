@@ -2,6 +2,7 @@ using Community.Data;
 using Community.Data.Configuration;
 using Community.Services.Extensions;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,8 @@ builder.Host.ConfigureLogging(logging =>
     logging.AddConsole();
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Host.ConfigureServices(services =>
 {

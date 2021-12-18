@@ -8,6 +8,7 @@ namespace Community.Services.Extensions
         {
             services.AddScoped<IExportService, ExportService>();
             services.AddScoped<ITreeService, TreeService>();
+            services.AddScoped<IAreaService, AreaService>();
         }
     }
 }
