@@ -2,5 +2,6 @@
 {
     public interface IExportService
     {
+        Task<bool> Run();
     }
 }
